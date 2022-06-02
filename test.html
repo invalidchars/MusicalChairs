@@ -96,21 +96,26 @@ img {
 	$("#start").click(function() {
 		var id=null;
 		var pos = 0;
+		var top = 0;
 		var imgs = $('div.col-8 img').length;
 		var curImg = $('div.col-8 img')[pos];
 		$(curImg).addClass('border');
 		clearInterval(id);
-		id = setInterval(tester, 100);
+		id = setInterval(tester, 1000);
 		function tester() {
 		if (pos == imgs) {
 		  pos = 0;
 		} else {
 			$(curImg).removeClass('border');
 			pos++;
+			if(pos > 0 && (pos)%4 == 0) {
+				top -= 155;
+				$('div.notes')[0].style.top = top + 'px';
+			}
 			curImg = $('div.col-8 img')[pos];
 			$(curImg).addClass('border');
 		}
-		}
+		};
 	});
 	$('#stop').click(function() {
 		MagicScroll.pause();
