@@ -36,13 +36,13 @@ img {
 		<input type="button" id="stop" value="Stop"/>
 	</div>
 	<div class="col">
-	<img src="magicscroll-trial/magicscroll/begrepeat.png" style="height: 130px;"/>
+	<img src="images/begrepeat.png" style="height: 130px;"/>
 	</div>
 	
 	<div class="col-8 notes">
 	</div>
 	<div class="col">
-		<img src="magicscroll-trial/magicscroll/endrepeat.png" style="height: 130px;"/>
+		<img src="images/endrepeat.png" style="height: 130px;"/>
 	</div>
 	<div class="col">
 	Hello
@@ -67,7 +67,7 @@ img {
 		const files = ["eighths.png","quarter.png","rest.png","sixteenths.png","triplets.png"]		
 		for(let i = 0; i < 100; i++) {
 			var random = Math.floor(Math.random()* files.length);
-			var file = "magicscroll-trial/magicscroll/"+files[random];
+			var file = "images/"+files[random];
 			$(this).prepend('<div class="images" style="height: 155px; max-height: 155px; display: inline-block; width: 25%;"><img src="'+file+'"/></div>');
 		}
 	});
@@ -109,9 +109,11 @@ img {
 		var id = null;
 			$('.notes').each(function() {
 			  var that = this;
-			  var elem = document.getElementById("myAnimation");   
-			  var pos = 0;
+			  var elem = document.getElementById("myAnimation");
 			  clearInterval(id);
+			  for(let pos = 0; pos > -150; pos--) {
+				this.style.top = pos + 'px';
+			  }
 			  /*id = setInterval(function(t) {
 					if(pos==-150) {
 						clearInterval(id);
