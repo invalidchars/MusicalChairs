@@ -9,7 +9,7 @@
   position: relative;
   background: yellow;
 }
-#myAnimation {
+.myAnimation {
   position: absolute;
   background-color: red;
 }
@@ -47,17 +47,6 @@ img {
 	<div class="col">
 	Hello
 	</div>
-	
-	<!--
-	<div class="col notes" id="note1">
-	</div>
-	<div class="col notes" id="note2">
-	</div>
-	<div class="col notes" id="note3">
-	</div>
-	<div class="col notes" id="note4">
-	</div>
-	-->
 </div>
 <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -105,26 +94,23 @@ img {
 		MagicScroll.start();
 	});
 	$("#start").click(function() {
-	
-		var id = null;
-			$('.notes').each(function() {
-			  var that = this;
-			  var elem = document.getElementById("myAnimation");
-			  clearInterval(id);
-			  for(let pos = 0; pos > -150; pos--) {
-				this.style.top = pos + 'px';
-			  }
-			  /*id = setInterval(function(t) {
-					if(pos==-150) {
-						clearInterval(id);
-					}
-					else {
-					  pos--; 
-					  t.style.top = pos + 'px'; 
-					}
-				  },.01,that);*/
-			
-			});
+		var id=null;
+		var pos = 0;
+		var imgs = $('div.col-8 img').length;
+		var curImg = $('div.col-8 img')[pos];
+		$(curImg).addClass('border');
+		clearInterval(id);
+		id = setInterval(tester, 100);
+		function tester() {
+		if (pos == imgs) {
+		  pos = 0;
+		} else {
+			$(curImg).removeClass('border');
+			pos++;
+			curImg = $('div.col-8 img')[pos];
+			$(curImg).addClass('border');
+		}
+		}
 	});
 	$('#stop').click(function() {
 		MagicScroll.pause();
