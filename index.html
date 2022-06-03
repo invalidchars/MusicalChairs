@@ -60,7 +60,7 @@ img {
 		for(let i = 0; i < 100; i++) {
 			var random = Math.floor(Math.random()* files.length);
 			var file = "images/"+files[random];
-			$(this).prepend('<div class="images" style="height: 150px; max-height: 150px; display: inline-block; width: 25%;"><img src="'+file+'"/></div>');
+			$(this).prepend('<div class="images" style="height: 300px; max-height: 300px; display: inline-block; width: 25%;"><img src="'+file+'"/></div>');
 		}
 	});
 	$(document).ready(function() {
@@ -93,52 +93,32 @@ img {
 		MagicScroll.start();
 	});
 	$("#start").click(function() {
-		let timerInterval
-		Swal.fire({
-		  html: '<h1>Ready: <b></b></h1>',
-		  timer: 4000,
-		  timerProgressBar: true,
-		  didOpen: () => {
-			Swal.showLoading()
-			const b = Swal.getHtmlContainer().querySelector('b')
-			timerInterval = setInterval(() => {
-			  b.textContent = Math.round(Swal.getTimerLeft()/1000)
-			}, 1000)
-		  },
-		  willClose: () => {
-			clearInterval(timerInterval)
-		  }
-		}).then((result) => {
-		  /* Read more about handling dismissals below */
-			StartChairs();
-		})
-		function StartChairs() {
-			var id=null;
-			var index = 0;	//index of image
-			var top = 0;	//position of div
-			var diff = 0;	//how much subtract from index
-			var imgs = $('div.col-8 img').length*2;	//max number of iterations (i.e., the amount of images x 2)
-			var curImg = $('div.col-8 img')[index];	//current image to assign border to
-			$(curImg).addClass('border');
-			clearInterval(id);
-			id = setInterval(tester, 60000/($('#BPM').val()));
-			function tester() {
-				if (index == imgs) {	//if index has reached the number of iterations
-					index = 0;
+		
+		var id=null;
+		var index = 0;	//index of image
+		var top = 0;	//position of div
+		var diff = 0;	//how much subtract from index
+		var imgs = $('div.col-8 img').length*2;	//max number of iterations (i.e., the amount of images x 2)
+		var curImg = $('div.col-8 img')[index];	//current image to assign border to
+		$(curImg).addClass('border');
+		clearInterval(id);
+		id = setInterval(tester, 60000/($('#BPM').val()));
+		function tester() {
+			if (index == imgs) {	//if index has reached the number of iterations
+				index = 0;
+			}
+			else {	//otherwise, continue looping
+				$(curImg).removeClass('border');
+				index++;
+				if(index%4 == 0 && index%8 != 0) {	//diff will change after 8 iterations (excluding the first 4)
+					diff+=4;
 				}
-				else {	//otherwise, continue looping
-					$(curImg).removeClass('border');
-					index++;
-					if(index%4 == 0 && index%8 != 0) {	//diff will change after 8 iterations (excluding the first 4)
-						diff+=4;
-					}
-					if(index > 0 && (index)%4 == 0 && index%8 == 0) { //the div is ready to move up
-						top -= 150;
-						$('div.notes')[0].style.top = top + 'px';
-					}
-					curImg = $('div.col-8 img')[index-diff];
-					$(curImg).addClass('border');
+				if(index > 0 && (index)%4 == 0 && index%8 == 0) { //the div is ready to move up
+					top -= 300;
+					$('div.notes')[0].style.top = top + 'px';
 				}
+				curImg = $('div.col-8 img')[index-diff];
+				$(curImg).addClass('border');
 			}
 		}
 	});
