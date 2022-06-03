@@ -30,7 +30,7 @@ img {
 <body>
 <div class="row">
 	<div class="col">
-		<input type="button" id="faster" value="Faster"/>
+		<input type="text" id ="BPM" size="3" maxlength="3"/><label>BPM</label>
 		<input type="button" id="start" value="Start"/>
 		<input hidden type="button" id="slower" value="Slower"/>
 		<input type="button" id="stop" value="Stop"/>
@@ -101,7 +101,7 @@ img {
 		var curImg = $('div.col-8 img')[pos];
 		$(curImg).addClass('border');
 		clearInterval(id);
-		id = setInterval(tester, 1000);
+		id = setInterval(tester, 60000/($('#BPM').val()));
 		function tester() {
 		if (pos == imgs) {
 		  pos = 0;
