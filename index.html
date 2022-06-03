@@ -23,6 +23,8 @@ img {
   margin-top: auto;
   margin-bottom: auto;
   display: block;
+  max-width: 100%;
+  max-height: 100%;
 }
 </style>
 
@@ -36,13 +38,13 @@ img {
 		<input type="button" id="stop" value="Stop"/>
 	</div>
 	<div class="col">
-	<img src="images/begrepeat.PNG" style="height: 130px;"/>
+	<img src="images/begrepeat.jpg" style="height: 130px;"/>
 	</div>
 	
 	<div class="col-8 notes">
 	</div>
 	<div class="col">
-		<img src="images/endrepeat.PNG" style="height: 130px;"/>
+		<img src="images/endrepeat.jpg" style="height: 130px;"/>
 	</div>
 	<div class="col">
 	Hello
@@ -53,11 +55,11 @@ img {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
 	$('.notes').each(function() {
-		const files = ["eighths.png","quarter.png","rest.png","sixteenths.png","triplets.png"]		
+		const files = ["eighths.jpg","quarter.jpg","rest.jpg","sixteenths.jpg","triplets.jpg"]		
 		for(let i = 0; i < 100; i++) {
 			var random = Math.floor(Math.random()* files.length);
 			var file = "images/"+files[random];
-			$(this).prepend('<div class="images" style="height: 155px; max-height: 155px; display: inline-block; width: 25%;"><img src="'+file+'"/></div>');
+			$(this).prepend('<div class="images" style="height: 150px; max-height: 150px; display: inline-block; width: 25%;"><img src="'+file+'"/></div>');
 		}
 	});
 	$(document).ready(function() {		
