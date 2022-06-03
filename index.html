@@ -99,6 +99,7 @@ img {
 		var id=null;
 		var pos = 0;
 		var top = 0;
+		var diff = 0;
 		var imgs = $('div.col-8 img').length;
 		var curImg = $('div.col-8 img')[pos];
 		$(curImg).addClass('border');
@@ -110,11 +111,14 @@ img {
 		} else {
 			$(curImg).removeClass('border');
 			pos++;
-			if(pos > 0 && (pos)%4 == 0) {
+			if(pos%4 == 0 && pos%8 != 0) {
+				diff+=4;
+			}
+			if(pos > 0 && (pos)%4 == 0 && pos%8 == 0) {
 				top -= 150;
 				$('div.notes')[0].style.top = top + 'px';
 			}
-			curImg = $('div.col-8 img')[pos];
+			curImg = $('div.col-8 img')[pos-diff];
 			$(curImg).addClass('border');
 		}
 		};
