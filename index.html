@@ -27,19 +27,21 @@ body {
 		<input type="button" id="start" value="Start"/>
 	</div>
 	<div class="col">
-	<img src="images/begrepeat.jpg" style="height: 130px;"/>
+	<img src="images/begrepeat.jpg"/>
 	</div>
 	<div class="col-8 notes">
 	
 	</div>
 	<div class="col">
-		<img src="images/endrepeat.jpg" style="height: 130px;"/>
+		<img src="images/endrepeat.jpg"/>
 	</div>
 </div>
 <script>
 	
 	$(document).ready(function() {
-		
+		$('div.col').each(function() {
+			$(this)[0].style.top = '25px';
+		});
 	});
 	$("#start").click(function() {
 				
