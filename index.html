@@ -2,15 +2,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
-
 .border {   border-width: 10px !important;   border-color: red !important;   border-style: solid !important; } 
-.col { padding-right: 0px !important; padding-left: 0px !important; flex-grow: 0 !important; }
-.col-8 { padding-right: 0px !important; padding-left: 0px !important; }
-.col-9 { padding-right: 0px !important; padding-left: 0px !important; }
-.col-2 { padding-right: 0px !important; padding-left: 0px !important; max-width: none !important; }
-.row { margin-right: 0px !important; margin-left: 0px !important; flex-wrap: nowrap !important; }
-.container-fluid { margin-right: 0px !important; margin-left: 0px !important; }
-
 #myContainer {
   width: 400px;
   height: 400px;
@@ -29,21 +21,23 @@ body {
 
 </head>
 <body>
-<div class='container-fluid'>
-	<div class="row">
-		<div class="col-2">
-			<input type="text" id ="BPM" size="3" maxlength="3"/><label>BPM</label>
-			<input type="button" id="start" value="Start"/>
-		</div>
-		<div class="col">
-		<img src="images/begrepeat.jpg"/>
-		</div>
-		<div class="col-7 notes">
-		
-		</div>
-		<div class="col">
-			<img src="images/endrepeat.jpg"/>
-		</div>
+<div class="row">
+	<div class="col">
+		<input type="text" id ="BPM" size="3" maxlength="3"/><label>BPM</label>
+		<input type="button" id="start" value="Start"/>
+		<input type="button" id="stop" value="Stop"/>
+	</div>
+	<div class="col">
+	<img src="images/begrepeat.jpg" style="height: 130px;"/>
+	</div>
+	<div class="col-8 notes">
+	
+	</div>
+	<div class="col">
+		<img src="images/endrepeat.jpg" style="height: 130px;"/>
+	</div>
+	<div class="col">
+	Hello
 	</div>
 </div>
 <script>
@@ -69,8 +63,8 @@ body {
 		var index = -4;	//index of image; below 0 to start the countdown
 		var top = 0;	//position of div
 		var diff = 0;	//how much subtract from index
-		var imgs = $('div.notes img').length*2;	//max number of iterations (i.e., the amount of images x 2)
-		var curImg = $('div.notes img')[index];	//current image to assign border to
+		var imgs = $('div.col-8 img').length*2;	//max number of iterations (i.e., the amount of images x 2)
+		var curImg = $('div.col-8 img')[index];	//current image to assign border to
 		clearInterval(id);
 		id = setInterval(tester, 60000/($('#BPM').val()));
 		function tester() {
@@ -79,9 +73,9 @@ body {
 				$('#countdown').html('<b>'+countDown+'</b>');
 				index++;
 				if(index == 0) {//ready to start music, so scroll up
-					top -= 305;
+					top -= 300;
 					$('div.notes')[0].style.top = top + 'px';
-					curImg = $('div.notes img')[index];
+					curImg = $('div.col-8 img')[index];
 					$(curImg).addClass('border');
 				}
 			}
@@ -99,7 +93,7 @@ body {
 						top -= 300;
 						$('div.notes')[0].style.top = top + 'px';
 					}
-					curImg = $('div.notes img')[index-diff];
+					curImg = $('div.col-8 img')[index-diff];
 					$(curImg).addClass('border');
 				}
 			}
