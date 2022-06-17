@@ -57,10 +57,11 @@ body {
 		if($('#ck1a')[0].checked) {
 			files.push("triplets.jpg");
 		}
-		for(let i = 0; i < 100; i++) {
+		for(let i = 0; i < 4; i++) {//instead of 100 images, there will now be 4
 			var random = Math.floor(Math.random()* files.length);
 			var file = "images/"+files[random];
-			$('.notes').prepend('<div class="images" style="height: 300px; max-height: 300px; display: inline-block; width: 25%;"><img src="'+file+'"/></div>');
+			$('.notes').prepend('<div class="images" style="height: 300px; max-height: 300px; display: inline-block; width: 25%;">'+
+			'<img id="Img'+i+'" src="'+file+'"/></div>');
 		}
 		
 		
@@ -71,39 +72,90 @@ body {
 		var id=null;
 		var index = -4;	//index of image; below 0 to start the countdown
 		var top = 0;	//position of div
-		var diff = 0;	//how much subtract from index
-		var imgs = $('div.col-8 img').length*2;	//max number of iterations (i.e., the amount of images x 2)
+		var diff = 0;	//how much subtract from index	//might no longer be necessary
+		var imgs = $('div.col-8 img').length*2;	//max number of iterations (i.e., the amount of images x 2)	//might no longer be necessary
 		var curImg = $('div.col-8 img')[index];	//current image to assign border to
+		var loop = 1;
 		clearInterval(id);
 		id = setInterval(tester, 60000/($('#BPM').val()));
 		function tester() {
 			if(index < 0) {//if still counting down		
-				var countDown = parseInt($('#countdown').text(),10) - 1;
-				$('#countdown').html('<b>'+countDown+'</b>');
-				index++;
-				if(index == 0) {//ready to start music, so scroll up
-					top -= 300;
-					$('div.notes')[0].style.top = top + 'px';
-					curImg = $('div.col-8 img')[index];
-					$(curImg).addClass('border');
+				var countDown = parseInt($('#countdown').text(),10) - 1; //next number to count down
+				$('#countdown').html('<b>'+countDown+'</b>'); //put in the number
+				index++; //increase index
+				if(index == 0) { //ready to start music, so scroll up
+					top -= 300; //the new location of div
+					$('div.notes')[0].style.top = top + 'px'; //move div up
+					curImg = $('div.col-8 img')[index]; //the new (1st) image to assign
+					$(curImg).addClass('border'); //place border on image
 				}
 			}
-			else if(index >= 0) { //else, begin scrolling up
+			else if(index >= 0) { //else, begin the music
 				if (index == imgs) {	//if index has reached the number of iterations
 					index = 0;
 				}
 				else {	//otherwise, continue looping
-					$(curImg).removeClass('border');
-					index++;
+					$(curImg).removeClass('border'); //remove border
+					//should i do something here before increasing index?
+						//it might be taken care of in the if else statement
+						//nope, i think here is where i need to replace the image
+					if(index == 7) { //reset index and easy mode will update new image
+						var randImg = Math.floor(Math.random()* files.length);
+						var randToReplace = Math.floor(Math.random()*4);
+						var file = "images/"+files[randImg];
+						document.getElementById('Img'+randToReplace).src=file;
+						index = 0;
+						loop = 1;
+					}
+					else {
+						index++; //increase index
+					}
+					//what now?
+					//the below if else determines which image will be next
+					//if index<4, index, otherwise index-4
+					if(index < 4) { //first time through
+						//index already increased above, so just assign the next(current) image
+						//i don't think i need the loop...?
+						//i do, because index is just going to go between 0 and 7
+						if(loop == 2) { //this will only be true when index == 0, so i guess i could do it on either one
+							//something happens here only when it's in hard mode
+						}
+						else { //nothing else happens...so do i even need the else?
+							
+						}
+						curImg = $('div.col-8 img')[index];
+					}
+					else {
+						//do other stuff
+						if(index == 4) { //loop increases to 2
+							loop = 2;
+						}
+						if(loop == 2) {
+							//previous image gets replaced
+							//only in hard mode
+						}
+						curImg = $('div.col-8 img')[index-4];
+					}
+					//whatever happens above, a new image will have the border
+					//which will be assigned below
+					$(curImg).addClass('border');
+					/*
 					if(index%4 == 0 && index%8 != 0) {	//diff will change after 8 iterations (excluding the first 4)
 						diff+=4;
 					}
 					if(index > 0 && (index)%4 == 0 && index%8 == 0) { //the div is ready to move up
-						top -= 300;
-						$('div.notes')[0].style.top = top + 'px';
+					//this will now be used to randomize the next image
+						var randImg = Math.floor(Math.random()* files.length);
+						var randToReplace = Math.floor(Math.random()*4);
+						var file = "images/"+files[randImg];
+						document.getElementById('Img'+randToReplace).src=file;
+						index = 0;
+						//rename src with a new one
+						/*top -= 300;
+						$('div.notes')[0].style.top = top + 'px';------/
 					}
 					curImg = $('div.col-8 img')[index-diff];
-					$(curImg).addClass('border');
+					$(curImg).addClass('border');//after this, the previous image goes up if a certain criteria is met*/
 				}
 			}
 		}
