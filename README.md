@@ -14,4 +14,5 @@ TODO:<br>
   <li>add hard mode which replaces all 4 notes</li>
   <li>prevent 4 rests from appearing</li>
   <li>on easy mode, prevent the next note from being the same as the note that is to be replaced</li>
+  <li>add audio to countdown</li>
 </ul>
