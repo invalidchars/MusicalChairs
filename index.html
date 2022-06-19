@@ -60,8 +60,8 @@ body {
 		for(let i = 0; i < 4; i++) {//instead of 100 images, there will now be 4
 			var random = Math.floor(Math.random()* files.length);
 			var file = "images/"+files[random];
-			$('.notes').prepend('<div class="images" style="height: 300px; max-height: 300px; display: inline-block; width: 25%;">'+
-			'<img id="Img'+i+'" src="'+file+'"/></div>');
+			$('.notes').prepend('<div class="images" style="height: 600px; max-height: 600px; display: inline-block; width: 25%;">'+
+			'<img id="Img'+(3-i)+'" src="'+file+'"/><img style="visibility: hidden;" id="Delete'+(3-i)+'"src="'+file+'" /></div>');
 		}
 		
 		
@@ -74,8 +74,10 @@ body {
 		var top = 0;	//position of div
 		var diff = 0;	//how much subtract from index	//might no longer be necessary
 		var imgs = $('div.col-8 img').length*2;	//max number of iterations (i.e., the amount of images x 2)	//might no longer be necessary
-		var curImg = $('div.col-8 img')[index];	//current image to assign border to
+		var curImg = document.getElementById('Img'+index);	//current image to assign border to
 		var loop = 1;
+		var randImg, randToReplace, file;
+		var myAudio = document.getElementById('my-audio');
 		clearInterval(id);
 		id = setInterval(tester, 60000/($('#BPM').val()));
 		function tester() {
@@ -86,8 +88,9 @@ body {
 				if(index == 0) { //ready to start music, so scroll up
 					top -= 300; //the new location of div
 					$('div.notes')[0].style.top = top + 'px'; //move div up
-					curImg = $('div.col-8 img')[index]; //the new (1st) image to assign
+					curImg = document.getElementById('Img'+index); //the new (1st) image to assign //this might not be necessary since this is the 1st one but it's already set in initialization
 					$(curImg).addClass('border'); //place border on image
+					myAudio.play();
 				}
 			}
 			else if(index >= 0) { //else, begin the music
@@ -100,9 +103,6 @@ body {
 						//it might be taken care of in the if else statement
 						//nope, i think here is where i need to replace the image
 					if(index == 7) { //reset index and easy mode will update new image
-						var randImg = Math.floor(Math.random()* files.length);
-						var randToReplace = Math.floor(Math.random()*4);
-						var file = "images/"+files[randImg];
 						document.getElementById('Img'+randToReplace).src=file;
 						index = 0;
 						loop = 1;
@@ -123,22 +123,28 @@ body {
 						else { //nothing else happens...so do i even need the else?
 							
 						}
-						curImg = $('div.col-8 img')[index];
+						curImg = document.getElementById('Img'+index);
 					}
 					else {
 						//do other stuff
 						if(index == 4) { //loop increases to 2
 							loop = 2;
+							randImg = Math.floor(Math.random()* files.length);
+							randToReplace = Math.floor(Math.random()*4);
+							file = "images/"+files[randImg];
+							//here, i will add the image below the image to be replaced
+							document.getElementById('Delete'+randToReplace).src=file;
 						}
 						if(loop == 2) {
 							//previous image gets replaced
 							//only in hard mode
 						}
-						curImg = $('div.col-8 img')[index-4];
+						curImg = document.getElementById('Img'+(index-4));
 					}
 					//whatever happens above, a new image will have the border
 					//which will be assigned below
 					$(curImg).addClass('border');
+					myAudio.play();
 					/*
 					if(index%4 == 0 && index%8 != 0) {	//diff will change after 8 iterations (excluding the first 4)
 						diff+=4;
@@ -161,4 +167,6 @@ body {
 		}
 	});
 </script>
+<audio id="my-audio" src="audio/woodblock.mp3">
+</audio>
 </body>
