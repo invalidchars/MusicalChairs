@@ -76,7 +76,7 @@ body {
 		var imgs = $('div.col-8 img').length*2;	//max number of iterations (i.e., the amount of images x 2)	//might no longer be necessary
 		var curImg = document.getElementById('Img'+index);	//current image to assign border to
 		var loop = 1;
-		var randImg, randToReplace, file;
+		var randImg, randToReplace=0, file;
 		var myAudio = document.getElementById('my-audio');
 		clearInterval(id);
 		id = setInterval(tester, 60000/($('#BPM').val()));
@@ -117,6 +117,8 @@ body {
 						//index already increased above, so just assign the next(current) image
 						//i don't think i need the loop...?
 						//i do, because index is just going to go between 0 and 7
+						//hide the delete that was the preview
+						document.getElementById('Delete'+randToReplace).style.visibility='hidden';
 						if(loop == 2) { //this will only be true when index == 0, so i guess i could do it on either one
 							//something happens here only when it's in hard mode
 						}
@@ -134,6 +136,7 @@ body {
 							file = "images/"+files[randImg];
 							//here, i will add the image below the image to be replaced
 							document.getElementById('Delete'+randToReplace).src=file;
+							document.getElementById('Delete'+randToReplace).style.visibility = 'visible';
 						}
 						if(loop == 2) {
 							//previous image gets replaced
