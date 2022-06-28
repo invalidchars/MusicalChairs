@@ -18,6 +18,12 @@ body {
   margin: 0;
 }
 
+.mnotes {
+		display: flex;
+		align-items: center;
+		margin-bottom: 40%;
+}
+
 </style>
 
 </head>
@@ -61,7 +67,7 @@ body {
 			var random = Math.floor(Math.random()* files.length);
 			var file = "images/"+files[random];
 			$('.notes').prepend('<div class="images" style="height: 600px; max-height: 600px; display: inline-block; width: 25%;">'+
-			'<img id="Img'+(3-i)+'" src="'+file+'"/><img style="visibility: hidden;" id="Delete'+(3-i)+'"src="'+file+'" /></div>');
+			'<img class="mnotes" id="Img'+(3-i)+'" src="'+file+'"/><img class="mnotes" style="visibility: hidden;" id="Delete'+(3-i)+'"src="'+file+'" /></div>');
 		}
 		
 		
