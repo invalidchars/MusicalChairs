@@ -87,6 +87,7 @@ body {
 		clearInterval(id);
 		id = setInterval(tester, 60000/($('#BPM').val()));
 		function tester() {
+			myAudio.play();
 			if(index < 0) {//if still counting down		
 				var countDown = parseInt($('#countdown').text(),10) - 1; //next number to count down
 				$('#countdown').html('<b>'+countDown+'</b>'); //put in the number
@@ -96,7 +97,6 @@ body {
 					$('div.notes')[0].style.top = top + 'px'; //move div up
 					curImg = document.getElementById('Img'+index); //the new (1st) image to assign //this might not be necessary since this is the 1st one but it's already set in initialization
 					$(curImg).addClass('border'); //place border on image
-					myAudio.play();
 				}
 			}
 			else if(index >= 0) { //else, begin the music
@@ -174,6 +174,7 @@ body {
 				}
 			}
 		}
+					myAudio.play();
 	});
 </script>
 <audio id="my-audio" src="audio/woodblock.mp3">
