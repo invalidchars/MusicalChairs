@@ -21,8 +21,22 @@ body {
 .mnotes {
 		display: flex;
 		align-items: center;
-		margin-bottom: 40%;
+		margin-bottom: 10%;
 }
+.triangle {
+	font-size: 60px;
+  /* Standard Syntax */
+  animation: PULSE 1s infinite;
+}
+
+/* Standard Syntax */
+@keyframes PULSE{
+  0%{color: white}	
+	110%{color: rgba(255,0,0);;}
+}
+      .notesHeight {
+        height: 155px;
+      }
 
 </style>
 
@@ -66,8 +80,11 @@ body {
 		for(let i = 0; i < 4; i++) {//instead of 100 images, there will now be 4
 			var random = Math.floor(Math.random()* files.length);
 			var file = "images/"+files[random];
-			$('.notes').prepend('<div class="images" style="height: 600px; max-height: 600px; display: inline-block; width: 25%;">'+
-			'<img class="mnotes" id="Img'+(3-i)+'" src="'+file+'"/><img class="mnotes" style="visibility: hidden;" id="Delete'+(3-i)+'"src="'+file+'" /></div>');
+			$('.notes').prepend('<div style="height: 600px; max-height: 600px; display: inline-block; width: 25%;">'+
+			'<img class="mnotes" id="Img'+(3-i)+'" src="'+file+'"/>'+
+			'<label class="triangle" id="Triangle'+(3-i)+'" style="visibility: hidden; justify-content: center; color: red;">'+
+			'&nbsp;&nbsp;&nbsp;▲'+
+			'</label><img class="mnotes" style="visibility: hidden;" id="Delete'+(3-i)+'"src="'+file+'" /></div>');
 		}
 		
 		
@@ -125,6 +142,7 @@ body {
 						//i do, because index is just going to go between 0 and 7
 						//hide the delete that was the preview
 						document.getElementById('Delete'+randToReplace).style.visibility='hidden';
+						document.getElementById('Triangle'+randToReplace).style.visibility='hidden';
 						if(loop == 2) { //this will only be true when index == 0, so i guess i could do it on either one
 							//something happens here only when it's in hard mode
 						}
@@ -143,6 +161,7 @@ body {
 							//here, i will add the image below the image to be replaced
 							document.getElementById('Delete'+randToReplace).src=file;
 							document.getElementById('Delete'+randToReplace).style.visibility = 'visible';
+							document.getElementById('Triangle'+randToReplace).style.visibility = 'visible';
 						}
 						if(loop == 2) {
 							//previous image gets replaced
