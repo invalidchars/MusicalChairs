@@ -11,5 +11,4 @@ TODO:<br>
   <li>on easy mode, prevent the next note from being the same as the note that is to be replaced</li>
   <li>add stop</li>
   <li>fix jumping around</li>
-  <li>change pulse to sync with bpm</li>
 </ul>
