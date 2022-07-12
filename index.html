@@ -160,9 +160,26 @@ body {
 						//do other stuff
 						if(index == 4) { //loop increases to 2
 							loop = 2;
-							randImg = Math.floor(Math.random()* files.length);
-							randToReplace = Math.floor(Math.random()*4);
-							file = "images/"+files[randImg];
+							let randOK = false;
+							while(randOK == false) {	//loop through until new image is not the same as old image
+								randImg = Math.floor(Math.random()* files.length);
+								randToReplace = Math.floor(Math.random()*4);
+								file = "images/"+files[randImg];
+								if(document.getElementById('Delete'+randToReplace).src != document.URL.replace("index.html",file)) {
+									if(files[randImg] != "rest.jpg") {
+										randOK = true;
+									}
+									else if(document.URL.replace("index.html",file) == document.getElementById('Delete0').src &&
+										document.URL.replace("index.html",file) == document.getElementById('Delete1').src &&
+										document.URL.replace("index.html",file) == document.getElementById('Delete2').src &&
+										document.URL.replace("index.html",file) == document.getElementById('Delete3').src){ //check if others are rest
+										randOK = false;
+									}
+									else {
+										randOK = true;
+									}
+								}								
+							}
 							//here, i will add the image below the image to be replaced
 							document.getElementById('Delete'+randToReplace).src=file;
 							document.getElementById('Delete'+randToReplace).style.visibility = 'visible';
